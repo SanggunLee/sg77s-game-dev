@@ -2,7 +2,7 @@
 
 
 
-{% embed url="https://www.youtube.com/live/Ur1B2Z_egxA?feature=shared" fullWidth="false" %}
+{% embed url="https://www.youtube.com/watch?v=Ur1B2Z_egxA" %}
 
 발더스3 와 같은 방식으로 한다.
 
