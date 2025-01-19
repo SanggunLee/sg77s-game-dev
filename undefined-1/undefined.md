@@ -1,5 +1,9 @@
 # - 카메라
 
+
+
+{% embed url="https://www.youtube.com/live/Ur1B2Z_egxA?feature=shared" fullWidth="false" %}
+
 발더스3 와 같은 방식으로 한다.
 
 1. Top Down
