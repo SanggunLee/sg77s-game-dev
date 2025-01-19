@@ -11,3 +11,6 @@
 3. 카메라가 지면과 가까워지면 수평으로 각도 조절
 4. Q,E 로 현 지점을 중심으로 회전
 
+
+
+{% embed url="https://www.youtube.com/watch?v=k82RwXqZHY8" %}
