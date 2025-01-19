@@ -1,6 +1,7 @@
 # Table of contents
 
-* [Welcome](README.md)
+* [게임 컨셉](README.md)
+* [Welcome](<README (1).md>)
 
 ## Getting Started
 
