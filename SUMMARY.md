@@ -15,6 +15,7 @@
 
 ## 사용 후보 Asset List
 
-* [- \[Good\] 마을 리스트](asset-list/good.md)
-* [- \[Bad\] 마을 리스트](asset-list/bad.md)
-* [- \[Good\] 단순 구조물](asset-list/good-1.md)
+* [건물들](asset-list/undefined/README.md)
+  * [- \[Good\] 마을 리스트](asset-list/undefined/good.md)
+  * [- \[Bad\] 마을 리스트](asset-list/undefined/bad.md)
+  * [- \[Good\] 단순 구조물](asset-list/undefined/good-1.md)
