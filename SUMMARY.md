@@ -9,3 +9,8 @@
 ## 게임 개발 계획
 
 * [- 카메라](undefined-2/undefined.md)
+
+## 사용 후보 Asset List
+
+* [\[Good\] 마을 리스트](asset-list/good.md)
+* [\[Bad\] 마을 리스트](asset-list/bad.md)
