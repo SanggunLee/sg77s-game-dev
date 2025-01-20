@@ -1,4 +1,4 @@
-# \[Bad] 마을 리스트
+# - \[Bad] 마을 리스트
 
 * DownTown West
 
