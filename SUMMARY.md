@@ -5,6 +5,7 @@
 ## 게임 컨셉
 
 * [- 발더스3 + 패스파인더](undefined-1/3-+.md)
+* [게임 컨텐츠](undefined/undefined.md)
 
 ## 게임 개발 계획
 
@@ -12,6 +13,6 @@
 
 ## 사용 후보 Asset List
 
-* [\[Good\] 마을 리스트](asset-list/good.md)
-* [\[Bad\] 마을 리스트](asset-list/bad.md)
-* [\[Good\] 단순 구조물](asset-list/good-1.md)
+* [- \[Good\] 마을 리스트](asset-list/good.md)
+* [- \[Bad\] 마을 리스트](asset-list/bad.md)
+* [- \[Good\] 단순 구조물](asset-list/good-1.md)
