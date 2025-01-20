@@ -221,6 +221,9 @@ Event Tick (DeltaTime)
 3. 가려지는 오브젝트 처리하는 것은 아직 안 함
 4. github 별도 브랜치로 관리
 5. gpt 가 spectator pawn 쓰라고 한것때문에 삽질을 오래함. 그냥 pawn 으로 구현해야함. spectator pawn 에 있는 movement component 때문에 필요한 인풋이 작동안함. spectator 쓰려면cpp 로 상속받아 구현해야하는데 그정도까지 귀찮게 할일이 아니어서 pawn 으로 간단하게 끝 냄.
+6. 여기까지 결과물 :&#x20;
+
+{% embed url="https://github.com/SanggunLee/sg77s-game-dev/commit/4eeeb6af9d5d19ba62dbae64228935dd37cc71be" %}
 
 TODO:
 
