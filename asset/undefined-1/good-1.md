@@ -15,3 +15,32 @@
 Fab 존재 안 함
 
 {% embed url="https://youtube.com/live/ECssfM6oBso?feature=share" %}
+
+* Infinity Blade: Grass Lands
+
+Fab 미존재
+
+{% embed url="https://youtube.com/live/AFlJ-xJP7JA?feature=share" %}
+
+
+
+* Infinity Blade: Ice Lands
+
+Fab 미존재
+
+{% embed url="https://youtube.com/live/rhfDBymvI8s?feature=share" %}
+
+*
+
+
+
+
+
+
+
+
+
+
+
+
+
