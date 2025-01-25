@@ -224,6 +224,12 @@ Event Tick (DeltaTime)
 
 
 
+플러그인으로 만들어놨다.
+
+플러그인을 패키징한 폴더를 Content/Plugin 안에 넣고 활성화 시키면 된다.
+
+
+
 TODO:
 
 1. 카메라가 부드럽게 이동해야 한다
