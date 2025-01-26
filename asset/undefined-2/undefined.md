@@ -1,10 +1,4 @@
-# - 소품
-
-
-
-\{% embed url="" %\}
-
-* 가정집
+# - 가정집
 
 {% embed url="https://www.fab.com/ko/listings/cde1beac-3971-47ce-86d2-73d6dc9b042d" %}
 서양가구
@@ -21,34 +15,4 @@
 {% embed url="https://www.fab.com/ko/listings/f6026f6c-3f7e-423b-8730-15a522e5922b" %}
 한국 가구
 {% endembed %}
-
-1
-
-1
-
-1
-
-1
-
-1
-
-1
-
-1
-
-1
-
-1
-
-1
-
-1
-
-1
-
-
-
-
-
-
 
