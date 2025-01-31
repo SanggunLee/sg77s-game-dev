@@ -30,3 +30,4 @@
     * [- 괴물류](asset/undefined-3/undefined.md)
     * [- 기계류](asset/undefined-3/undefined-1.md)
     * [- 인간류](asset/undefined-3/undefined-2.md)
+  * [찜리스트](asset/undefined-4.md)
