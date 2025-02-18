@@ -33,3 +33,4 @@
   * [찜리스트](asset/undefined-4.md)
 * [AI](ai/README.md)
   * [생각들 모음](ai/undefined.md)
+  * [Llamaindex](ai/llamaindex.md)
