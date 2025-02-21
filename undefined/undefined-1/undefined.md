@@ -1,12 +1,12 @@
 # 소설 같은 이세계생활
 
-시작점.&#x20;
+<details>
+
+<summary> 시작 </summary>
 
 근미래 어느 작은 가정집
 
-<details>
 
-<summary> </summary>
 
 어두운 침실.&#x20;
 
