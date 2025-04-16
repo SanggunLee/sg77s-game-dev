@@ -6,6 +6,7 @@
   * [- 게임 컨텐츠](undefined/undefined.md)
   * [- 스토리](undefined/undefined-1/README.md)
     * [소설 같은 이세계생활](undefined/undefined-1/undefined.md)
+  * [짧은 아이디어](undefined/undefined-2.md)
 * [Unreal 구현물](unreal/README.md)
   * [- Unreal 구조](unreal/unreal.md)
   * [- 카메라](unreal/undefined.md)
