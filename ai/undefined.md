@@ -183,3 +183,173 @@ LLM_Prompts/
 원하는 방향 골라줘도 되고, 다 도와줄 수 있어요!
 
 </details>
+
+<details>
+
+<summary>언리얼5에서 C++ 로 구현하기. llm 프롬프트 생성 후 통신</summary>
+
+
+
+좋습니다!\
+CRPG 스타일 게임에서 \*\*NPC 대사를 LLM API(OpenAI 등)\*\*로 생성하려면 언리얼 엔진에서 다음과 같은 시스템을 구성해야 합니다.
+
+***
+
+### 🎯 목표 요약
+
+* 언리얼 엔진 5에서 NPC 클릭 → 대화 창 열림
+* 대화 요청 → LLM API 호출 → 응답 수신
+* NPC 개별 프롬프트 + 공용 프롬프트 기반 생성
+* 대화 결과 저장 (NPC 별 기억 유지)
+* 대화 UI에 결과 출력
+
+***
+
+### 🧩 시스템 구성도 (요약)
+
+```plaintext
+[Player] 클릭
+   ↓
+[NPC Blueprint] → "TalkToNPC"
+   ↓
+[Prompt Generator (C++)]
+   ↓
+[HTTP 요청 → LLM API (OpenAI etc)]
+   ↓
+[LLM 응답 수신 → JSON 파싱]
+   ↓
+[대화 UI 업데이트]
+   ↓
+[대화 로그 저장 (JSON or SaveGame)]
+```
+
+***
+
+### 🔧 언리얼 엔진 연동 순서
+
+#### ① HTTP 요청 설정
+
+LLM API는 일반적인 **REST API (POST)** 형식이므로 언리얼의 `HTTP Module`로 접근 가능.
+
+**📌 `Build.cs`에 추가:**
+
+```csharp
+PublicDependencyModuleNames.AddRange(new string[] { "HTTP", "Json", "JsonUtilities" });
+```
+
+**📌 헤더 포함:**
+
+```cpp
+#include "HttpModule.h"
+#include "Http.h"
+#include "Interfaces/IHttpRequest.h"
+#include "Interfaces/IHttpResponse.h"
+```
+
+***
+
+#### ② LLM 요청 생성 함수
+
+```cpp
+void UNPCDialogueComponent::SendPromptToLLM(FString Prompt)
+{
+    TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
+    Request->SetURL("https://api.openai.com/v1/chat/completions");
+    Request->SetVerb("POST");
+    Request->SetHeader("Content-Type", "application/json");
+    Request->SetHeader("Authorization", "Bearer YOUR_API_KEY");
+
+    FString Body = R"(
+    {
+        "model": "gpt-4",
+        "messages": [
+            {"role": "system", "content": "세계관 설정"},
+            {"role": "user", "content": ")" + Prompt + R"("}
+        ],
+        "temperature": 0.7
+    })";
+
+    Request->SetContentAsString(Body);
+    Request->OnProcessRequestComplete().BindUObject(this, &UNPCDialogueComponent::OnResponseReceived);
+    Request->ProcessRequest();
+}
+```
+
+***
+
+#### ③ 응답 처리 함수
+
+```cpp
+void UNPCDialogueComponent::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+    if (bWasSuccessful && Response->GetResponseCode() == 200)
+    {
+        FString ResponseString = Response->GetContentAsString();
+        TSharedPtr<FJsonObject> JsonResponse;
+        TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(ResponseString);
+
+        if (FJsonSerializer::Deserialize(Reader, JsonResponse))
+        {
+            FString Message = JsonResponse->GetArrayField("choices")[0]->AsObject()->GetObjectField("message")->GetStringField("content");
+            UE_LOG(LogTemp, Warning, TEXT("LLM 응답: %s"), *Message);
+
+            // 대화 UI에 출력
+            OnLLMResponse.Broadcast(Message);
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("LLM API 호출 실패"));
+    }
+}
+```
+
+***
+
+#### ④ NPC마다 다른 프롬프트 입력
+
+NPC마다 저장된 `.txt` 또는 `DataAsset`, 혹은 `USTRUCT` 구조체로 프롬프트를 저장해두고 LLM 호출 전 병합합니다.
+
+```cpp
+FString FinalPrompt = CommonPrompt + "\n" + NPCProfile + "\n" + PlayerContext;
+SendPromptToLLM(FinalPrompt);
+```
+
+***
+
+#### ⑤ 대화 내용 저장 및 기억 시스템
+
+* `SaveGame` 객체에 저장
+* `TMap<FName, TArray<FDialogueLog>>` 형태로 NPC 별 대화 저장
+* 다음 대화 시 이전 로그를 프롬프트에 포함
+
+***
+
+### 🎮 언리얼 블루프린트 연동 예시
+
+* NPC Actor에 `NPCDialogueComponent` 추가
+* 블루프린트에서 `SendPromptToLLM` 노드 호출
+* `OnLLMResponse` 델리게이트 바인딩 → UI 업데이트
+
+***
+
+### ✨ 확장 팁
+
+| 기능    | 구현 아이디어                                |
+| ----- | -------------------------------------- |
+| 감정 변화 | 대화 결과에서 감정 키워드 추출 후 `NPCEmotion` 상태 갱신 |
+| 지식 제한 | 프롬프트에 `"이 NPC는 왕국 바깥일은 전혀 모른다."` 포함    |
+| 성격 반영 | `"이 NPC는 말이 짧고 까칠하다."` 포함              |
+| 감정 분석 | LLM에게 `"이 문장에서 플레이어에게 느낀 감정을 추출해줘"` 요청 |
+
+***
+
+필요하다면:
+
+* 📁 `Prompt 구성 자동화 시스템`
+* 🧠 `대화 로그를 파일로 저장/불러오는 SaveGame 클래스`
+* 📊 `대화 UI 템플릿`
+
+도 바로 만들어 드릴 수 있어요. 어떤 부분부터 코드나 예제 추가해드릴까요?
+
+</details>
