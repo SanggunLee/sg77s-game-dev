@@ -353,3 +353,143 @@ SendPromptToLLM(FinalPrompt);
 도 바로 만들어 드릴 수 있어요. 어떤 부분부터 코드나 예제 추가해드릴까요?
 
 </details>
+
+<details>
+
+<summary>npc 가 LLM 으로 대화 가능하게 하는 플러그인<br>LLM 자동 코드 생성을 위한 문서</summary>
+
+## LLM Dialogue Plugin 설계 및 명세 문서
+
+이 문서는 Unreal Engine 5 기반 게임에서 NPC 대사 생성을 위해 LLM API(OpenAI GPT 등)를 연동하는 **LLM Dialogue Plugin**의 아키텍처 및 함수 설계 명세입니다. 이 문서를 기반으로 LLM이 자동으로 C++ 코드 및 관련 블루프린트 연동을 생성할 수 있도록 구성되어 있습니다.
+
+***
+
+### 개요
+
+* **플러그인 이름:** `LLMDialoguePlugin`
+* **목적:** 게임 내 NPC가 플레이어와 상호작용할 때, LLM API를 통해 대사를 실시간 생성하도록 지원
+* **기반 엔진:** Unreal Engine 5
+* **주요 언어:** C++
+
+***
+
+### 아키텍처 구성도
+
+```plaintext
+[Player] 클릭
+   ↓
+[NPC Actor] + [LLMDialogueComponent]
+   ↓
+[Prompt 구성 함수] + [HTTP 요청 처리 함수]
+   ↓
+[LLM API (ex: GPT-4)]
+   ↓
+[응답 수신] → [Blueprint Event로 전달]
+   ↓
+[UI 출력 및 대화 로그 저장]
+```
+
+***
+
+### 주요 컴포넌트
+
+#### 1. `ULLMDialogueComponent`
+
+> NPC Actor에 부착 가능한 ActorComponent. LLM 요청과 응답 처리를 담당.
+
+**주요 함수 및 변수**
+
+**`void SendPromptToLLM(const FString& Prompt)`**
+
+* **역할:** 전달된 프롬프트를 LLM API에 POST 방식으로 전송
+* **입력:** `Prompt` (대사 생성을 위한 전체 텍스트)
+* **출력:** 없음 (결과는 콜백을 통해 전달)
+
+**`void OnResponseReceived(...)`**
+
+* **역할:** HTTP 응답이 완료되었을 때 호출되며, JSON에서 메시지를 추출하여 이벤트로 전달
+* **출력:** `FString Message` (LLM 응답 텍스트)
+
+**`FOnLLMResponse OnLLMResponse`**
+
+* **역할:** LLM 응답을 블루프린트에 전달하는 delegate
+* **BlueprintAssignable:** UI 연동에 사용
+
+***
+
+### API 요청 사양 (OpenAI GPT 예시)
+
+#### URL
+
+```
+https://api.openai.com/v1/chat/completions
+```
+
+#### 요청 Body 예시
+
+```json
+{
+  "model": "gpt-4",
+  "messages": [
+    {"role": "system", "content": "세계관 설명 및 말투 규칙 등"},
+    {"role": "user", "content": "NPC 프롬프트 텍스트"}
+  ],
+  "temperature": 0.7
+}
+```
+
+#### 요청 헤더
+
+* `Content-Type: application/json`
+* `Authorization: Bearer <YOUR_API_KEY>`
+
+***
+
+### 사용 예 (블루프린트)
+
+1. NPC에 `LLMDialogueComponent` 부착
+2. `SendPromptToLLM(PromptString)` 호출
+3. `OnLLMResponse` 바인딩 → 텍스트 출력 위젯에 연결
+
+***
+
+### 확장 가능 항목
+
+| 기능                  | 설명                         |
+| ------------------- | -------------------------- |
+| SaveGame 연동         | NPC별 대화 로그를 저장하여 기억 유지     |
+| 다양한 LLM 연동          | Claude, Gemini 등으로 확장 가능   |
+| Prompt Template 시스템 | JSON 기반 템플릿 구성 자동화         |
+| 프롬프트 큐              | 다수의 NPC 요청을 순차적으로 처리하는 대기열 |
+| 감정 분석               | 대사에 포함된 감정 태그 추출 가능        |
+
+***
+
+### 파일 구조 예시
+
+```plaintext
+LLMDialoguePlugin/
+├─ Source/LLMDialoguePlugin/
+│  ├─ Public/
+│  │  └─ LLMDialogueComponent.h
+│  └─ Private/
+│     └─ LLMDialogueComponent.cpp
+├─ Resources/
+│  └─ Icon128.png
+├─ LLMDialoguePlugin.uplugin
+```
+
+***
+
+### 향후 발전 방향
+
+* DialogueStateMachine과의 통합
+* NPC별 프로필 파일 자동 로딩 (DataTable 또는 JSON)
+* 멀티 캐릭터 동시 대화 지원
+* 프롬프트 내 세계관 정보 병합 최적화
+
+***
+
+이 문서를 기반으로 LLM은 C++ 코드 생성, 블루프린트 노드 생성, HTTP API 자동화 등을 수행할 수 있습니다.
+
+</details>
