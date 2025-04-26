@@ -212,9 +212,11 @@ Event Tick (DeltaTime)
 
 </details>
 
+<details>
+
+<summary>결과물 </summary>
 
 
-결과물&#x20;
 
 1. 발더스와 같은 방식
 2. fps 와 무관하도록 구현함
@@ -230,9 +232,102 @@ Event Tick (DeltaTime)
 
 
 
+
+
 TODO:
 
 1. 카메라가 부드럽게 이동해야 한다
-2. 케릭터를 가리는 오브젝트 부분을 투명화시키던지 해야 한다
+2. 케릭터를 가리는 오브젝트 부분을 투명화시키던지 해야 한다 &#x20;
+
+
+
+</details>
 
 {% embed url="https://www.youtube.com/live/Pl-0fdj4z3U" %}
+
+<details>
+
+<summary>마우스 커서 보이면서 게임에 계속 포커스 해야 하는 경우</summary>
+
+오, 아주 정확하게 핵심을 집었어. 👏\
+&#xNAN;**"마우스 커서를 보여야 하는데, Middle Mouse 클릭 인식이 제대로 안 되는 문제"**\
+→ 이건 언리얼에서 **커서가 보이는 상태**(`bShowMouseCursor = true`)일 때,\
+**마우스 입력을 UI Input처럼 다루기** 때문이야.
+
+즉,
+
+* 커서가 보이면 "게임 입력"이 아니라 "UI 입력"처럼 해석해서
+* 마우스 버튼 누름도 제대로 전달되지 않거나, 포커스나 클릭 처리에 문제가 생겨.
+
+***
+
+## 🛠️ 마우스 커서가 보여야 할 때 문제를 해결하는 방법
+
+✅ **핵심은** `InputMode` 설정을 "게임 입력은 받지만, 커서도 보이게" 맞춰주는 거야.
+
+`SetInputMode Game Only`는 커서를 숨기는 용도니까,\
+**너한테 맞는 건 다른 모드야.**
+
+정답은:
+
+> **SetInputModeGameAndUI**
+
+을 사용하는 거야!
+
+***
+
+## ✨ 블루프린트에서 해야 할 것
+
+```plaintext
+Event BeginPlay
+→ Get Player Controller
+→ Set Input Mode Game and UI
+   - Widget To Focus: (비워두거나 None)
+   - Hide Cursor During Capture: False
+→ Set Show Mouse Cursor: True
+```
+
+**중요 옵션**:
+
+* `Hide Cursor During Capture = false` (커서 보이게 유지)
+* `Widget To Focus`는 빈 상태로 두면 게임 자체를 포커스함.
+
+**결과적으로**:
+
+* 커서는 보이지만,
+* 마우스 버튼 입력(특히 Middle Mouse Button)도 정상적으로 게임 쪽으로 전달된다!
+
+***
+
+## 📜 요약
+
+| 문제                            | 해결 방법                                                           |
+| ----------------------------- | --------------------------------------------------------------- |
+| 마우스 커서를 보여야 해서 Middle 클릭이 안 됨 | `SetInputMode Game and UI` 사용, Hide Cursor During Capture=false |
+
+***
+
+## 📌 추가 팁
+
+* 만약 UI 위에 마우스가 올라갔을 때만 입력이 막히고 싶다면, `Focusable` 옵션을 설정하거나, Input Priority를 조정할 수 있어.
+* 그리고 혹시 Enhanced Input을 쓸 때 Input Priority 설정이 필요한 경우, 알려주면 거기까지 추가 설명해줄게.
+
+***
+
+## 🔥 정리된 블루프린트 플로우 예시
+
+```plaintext
+Event BeginPlay
+ → Set Input Mode Game and UI (Hide Cursor During Capture: False)
+ → Set Show Mouse Cursor (True)
+```
+
+***
+
+> 바로 따라할 수 있도록 이거 **블루프린트 노드 연결 그림** 도 그려줄까? ✍️✨\
+> (필요하면 "네, 그림 보여줘" 라고 해줘!)
+
+또는 혹시 이걸 **C++로 깔끔하게 적용하는 코드 예시**도 필요해? 🚀\
+(선택해서 알려줘!)
+
+</details>
