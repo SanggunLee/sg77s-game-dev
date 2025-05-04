@@ -37,3 +37,4 @@
   * [생각들 모음](ai/undefined-1.md)
   * [Llamaindex](ai/llamaindex.md)
   * [tts](ai/tts.md)
+* [패파 data](data.md)
