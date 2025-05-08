@@ -369,12 +369,6 @@ print(response.response)
 
 </details>
 
-<details>
-
-<summary>권장 아키텍처 구성을 markdown mermaid 로 전체 시스템 다이어그램을 그려줘</summary>
-
-
-
 ```mermaid
 flowchart TD
     subgraph "Player"
@@ -418,47 +412,11 @@ flowchart TD
     RequestHandler --> |"응답 전달"| P
 ```
 
-</details>
 
-```mermaid
-flowchart TD
-    subgraph "Player"
-        P["플레이어"]
-    end
 
-    subgraph "RAG System"
-        RAG_Engine["LlamaIndex / Pinecone / FAISS"]
-        RAG_Engine -->|"대화 기록 검색"| ContextRetriever["컨텍스트 검색기"]
-    end
 
-    subgraph "Storage"
-        DialogueDB["대화 로그 저장소 (MongoDB / JSON)"]
-        VectorDB["벡터 DB (Pinecone / FAISS)"]
-        RedisCache["Redis Cache"]
-    end
 
-    subgraph "Backend"
-        RequestHandler["요청 처리기"]
-        ContextManager["컨텍스트 관리기"]
-        VectorProcessor["벡터화 및 인덱싱"]
-        CacheManager["캐시 관리기"]
-        
-        RequestHandler --> ContextManager
-        RequestHandler --> VectorProcessor
-        RequestHandler --> CacheManager
-        ContextManager --> DialogueDB
-        VectorProcessor --> VectorDB
-        CacheManager --> RedisCache
-    end
 
-    subgraph "LLM"
-        LLM_Model["LLM Model (30B/70B)"]
-    end
 
-    P --> |"대화 요청"| RequestHandler
-    RequestHandler --> |"벡터화 요청"| RAG_Engine
-    ContextRetriever --> |"관련 대화 검색 결과"| ContextManager
-    ContextManager --> |"대화 컨텍스트 제공"| LLM_Model
-    LLM_Model --> |"NPC 응답 생성"| RequestHandler
-    RequestHandler --> |"응답 전달"| P
-```
+
+
