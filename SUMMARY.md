@@ -33,6 +33,7 @@
     * [- 인간류](asset/undefined-3/undefined-2.md)
   * [찜리스트](asset/undefined-4.md)
 * [AI](ai/README.md)
+  * [CC 사용 규칙](ai/cc.md)
   * [세계 구현](ai/undefined.md)
   * [생각들 모음](ai/undefined-1.md)
   * [Llamaindex](ai/llamaindex.md)
