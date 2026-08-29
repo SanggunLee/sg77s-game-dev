@@ -2,7 +2,7 @@
 
 * [기록을 남긴다](README.md)
 * [게임 컨셉](undefined/README.md)
-  * [- 핵심 룰](undefined-1/3-+.md)
+  * [- 핵심 룰](undefined/3-+.md)
   * [- 게임 컨텐츠](undefined/undefined.md)
   * [- 스토리](undefined/undefined-1/README.md)
     * [소설 같은 이세계생활](undefined/undefined-1/undefined.md)
