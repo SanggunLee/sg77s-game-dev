@@ -1,5 +1,11 @@
 # 동영상에서 애니메이션 만들기
 
+
+
+{% embed url="https://youtu.be/J4L2dvyQGxs?si=QvmQ_Hvyr5zPhqS9" %}
+
+
+
 이 문서는 **Unreal Engine 5.8**에서 일반 단일 카메라 동영상을 분석하여 몸 또는 얼굴·몸 애니메이션을 만들고, 조립된 MetaHuman에 적용하는 과정을 설명한다.
 
 {% hint style="warning" %}
@@ -8,7 +14,7 @@ UE 5.8의 단일 카메라 몸 애니메이션 처리는 **Windows 전용 Experi
 
 ## 전체 작업 순서
 
-```text
+```
 동영상 준비
 → Capture Manager로 가져오기
 → Capture Data 에셋 생성
@@ -96,7 +102,7 @@ UE 5.8의 단일 카메라 몸 애니메이션 처리는 **Windows 전용 Experi
 
 작업이 성공하면 기본적으로 다음 위치에 Capture Data 에셋이 생성된다.
 
-```text
+```
 Content/CaptureManager/Imports
 ```
 
@@ -202,8 +208,8 @@ MetaHuman이 Sequencer에 추가되면 보통 `Body`와 `Face` 구성 요소가 
 
 동작 자체를 수정하려면 다음과 같이 Control Rig으로 베이크한다.
 
-* 몸: Body 트랙 우클릭 → **Bake To Control Rig > MetaHuman_ControlRig**
-* 얼굴: Face 트랙 우클릭 → **Bake To Control Rig > Face_ControlBoard_CtrlRig**
+* 몸: Body 트랙 우클릭 → **Bake To Control Rig > MetaHuman\_ControlRig**
+* 얼굴: Face 트랙 우클릭 → **Bake To Control Rig > Face\_ControlBoard\_CtrlRig**
 
 베이크 후에는 Sequencer와 뷰포트에서 손, 발, 골반, 표정 컨트롤의 키프레임을 직접 수정할 수 있다. 원본 Animation Sequence는 복제하여 보관하는 것이 안전하다.
 
@@ -243,4 +249,3 @@ MetaHuman Animator의 단일 카메라 몸 추출은 한 명의 연기자를 전
 * [Process and Export Your Animation](https://dev.epicgames.com/documentation/metahuman/metahuman-animator-02-process-and-export-your-animation-in-unreal-engine)
 * [Apply Your Animation to a MetaHuman](https://dev.epicgames.com/documentation/metahuman/metahuman-animator-03-apply-your-animation-to-a-metahuman-in-unreal-engine)
 * [Video Capture Guidelines](https://dev.epicgames.com/documentation/metahuman/metahuman-animator-video-capture-guidelines-in-unreal-engine)
-
