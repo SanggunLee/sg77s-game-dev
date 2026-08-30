@@ -1,8 +1,6 @@
 # 동영상에서 애니메이션 만들기
 
-
-
-{% embed url="https://youtu.be/J4L2dvyQGxs?si=QvmQ_Hvyr5zPhqS9" %}
+{% embed url="https://youtu.be/F88290t8U5Q?si=VXECHhcTZTpgIJoA" %}
 
 
 
